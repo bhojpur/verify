@@ -1,0 +1,61 @@
+before:
+  hooks:
+    - go generate -v ./...
+builds:
+- id: verifysvr
+  env:
+  - CGO_ENABLED=0
+  main: server.go
+  binary: verifysvr
+  ldflags:
+  - -s -w -X github.com/bhojpur/verify/cmd/server.version={{.Version}}-{{.ShortCommit}}
+- id: verifyctl
+  env:
+  - CGO_ENABLED=0
+  main: client.go
+  binary: verifyctl
+  flags:
+    - -tags=verifyctl
+  ldflags:
+  - -s -w -X github.com/bhojpur/verify/cmd/client.version={{.Version}}-{{.ShortCommit}}
+archives:
+- id: verifysvr
+  replacements:
+    darwin: Darwin
+    linux: Linux
+    386: i386
+    amd64: x86_64
+  builds:
+  - verifysvr
+- id: verifyctl
+  files:
+  - "none*"
+  format: binary
+  builds:
+  - verifyctl
+  replacements:
+    darwin: Darwin
+    linux: Linux
+    386: i386
+    amd64: x86_64
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+release:
+  prerelease: auto
+dockers:
+  - goos: linux
+    goarch: amd64
+    goarm: ''
+    dockerfile: Dockerfile
+    image_templates:
+    - "ghcr.io/bhojpur/verify:{{ .Tag }}"
+    extra_files:
+    - README.md
