@@ -6,7 +6,8 @@ require (
 	github.com/lib/pq v1.10.4
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.3.0
-	google.golang.org/grpc v1.43.0
+	google.golang.org/grpc v1.45.0
+	google.golang.org/protobuf v1.27.1
 	k8s.io/apimachinery v0.23.1
 	k8s.io/client-go v1.5.2
 )
@@ -35,7 +36,6 @@ require (
 	golang.org/x/time v0.0.0-20211116232009-f0f3c7e86c11 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20220111164026-67b88f271998 // indirect
-	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
